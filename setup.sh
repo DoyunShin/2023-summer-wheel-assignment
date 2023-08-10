@@ -34,3 +34,4 @@ fi
 sudo docker compose up -d
 
 printf "\033[0;32mDeploy Success!\033[0m\n"
+

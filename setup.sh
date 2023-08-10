@@ -14,15 +14,6 @@ git pull
 sed -i "s/backend.example.com/${BACK_DNS}/g" webconf/sites-enabled/backend
 sed -i "s/frontend.example.com/${FRONT_DNS}/g" webconf/sites-enabled/frontend
 
-if [ ! -f /etc/letsencrypt/live/${BACK_DNS}/fullchain.pem ]; then
-    printf "\033[0;31mPlease make sure the domain cert is valid\033[0m\n"
-    exit 1
-fi
-if [ ! -f /etc/letsencrypt/live/${BACK_DNS}/privkey.pem ]; then
-    printf "\033[0;31mPlease make sure the domain cert is valid\033[0m\n"
-    exit 1
-fi
-
 sudo docker compose pull
 # check docker container is already running
 # if runninng, compose down

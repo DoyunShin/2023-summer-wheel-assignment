@@ -23,6 +23,10 @@ if [ ! -f /etc/letsencrypt/live/${BACK_DNS}/privkey.pem ]; then
     exit 1
 fi
 
-docker compose pull
-docker compose down
-docker compose up -d
+sudo docker compose pull
+# check docker compose is running
+# use docker compose ps to check
+
+
+sudo docker compose down
+sudo docker compose up -d

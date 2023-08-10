@@ -22,14 +22,13 @@ servuces:
       - PORT=80
       - DB_PATH=mongodb://db:27017/taxi
       - REDIS_HOST=redis://redis:6379
-      - SPARCSSO_CLIENT_ID=${SPARCSSO_CLIENT_ID}
-      - SPARCSSO_CLIENT_KEY=${SPARCSSO_CLIENT_KEY}
+      - SPARCSSSO_CLIENT_ID=${SPARCSSSO_CLIENT_ID}
+      - SPARCSSSO_CLIENT_KEY=${SPARCSSSO_CLIENT_KEY}
       - FRONT_URL=${FRONT_URL}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME}
       - SESSION_KEY=${SESSION_KEY}
-      - JWT_SECRET=${JWT_SECRET}
     networks:
       - taxi-net
   client:
@@ -37,8 +36,7 @@ servuces:
     restart: always
     image: tklco/taxi-client:latest
     environment:
-      - REACT_APP_API_URL=${REACT_APP_API_URL}
-      - REACT_APP_IO_URL=${REACT_APP_IO_URL}
+      - REACT_APP_BACK_URL=${REACT_APP_BACK_URL}
       - REACT_APP_S3_URL=${REACT_APP_S3_URL}
   db:
     container_name: db

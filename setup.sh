@@ -9,7 +9,6 @@ fi
 # remove webconf/ directory and reset with git
 rm -rf webconf/
 git restore webconf/
-git pull
 
 sed -i "s/backend.example.com/${BACK_DNS}/g" webconf/sites-enabled/backend
 sed -i "s/frontend.example.com/${FRONT_DNS}/g" webconf/sites-enabled/frontend

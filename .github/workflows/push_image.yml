@@ -39,4 +39,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /app/taxi/
+            git pull
             ./setup.sh

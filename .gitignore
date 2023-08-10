@@ -1,1 +1,3 @@
 .idea
+dh-param.pem
+.env

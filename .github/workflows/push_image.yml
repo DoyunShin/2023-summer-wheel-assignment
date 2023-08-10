@@ -39,5 +39,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /app/taxi/
+            rm -rf webconf/sites-enabled/*
             git pull
             ./setup.sh

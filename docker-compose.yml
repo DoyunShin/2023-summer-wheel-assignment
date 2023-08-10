@@ -59,7 +59,7 @@ services:
   db_backup:
     container_name: db_backup
     restart: always
-    build: ./db_backup
+    build: ./db-backup
     command: 
     volumes:
       - ./backup:/backup:rw

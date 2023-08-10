@@ -7,7 +7,7 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/frontend.example.com/privkey.pem;
 
     location / {
-        proxy_pass http://server:80;
+        proxy_pass http://taxi-client:80;
     }
 }
 

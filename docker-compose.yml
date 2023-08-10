@@ -9,9 +9,11 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./webconf/sites-enabled:/etc/nginx/sites-enabled
-      - ./logs/nginx:/var/log/nginx
+      - ./webconf/sites-enabled:/etc/nginx/sites-enabled:ro
+      - ./webconf/nginx.conf:/etc/nginx/nginx.conf:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
+      - ./webconf/ssl:/etc/nginx/ssl:ro
+      - ./logs/nginx:/var/log/nginx:rw
   server:
     container_name: taxi-server
     restart: always
@@ -43,8 +45,8 @@ services:
     restart: always
     image: mongo:5.0.8
     volumes:
-      - mongo-logs:/var/log/mongodb
-      - mongo-data:/var/lib/mongodb
+      - mongo-logs:/var/log/mongodb:rw
+      - mongo-data:/var/lib/mongodb:rw
       - ./mongodb.conf:/etc/mongo/mongodb.conf:ro
     networks:
       - taxi-net
@@ -54,6 +56,13 @@ services:
     image: redis:latest
     networks:
       - taxi-net
+  db_backup:
+    container_name: db_backup
+    restart: always
+    build: ./db_backup
+    command: 
+    volumes:
+      - ./backup:/backup:rw
 
 volumes:
   mongo-logs:

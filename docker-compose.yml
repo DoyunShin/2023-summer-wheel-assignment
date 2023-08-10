@@ -1,6 +1,6 @@
 version: "3.3"
 
-servuces:
+services:
   proxy:
     container_name: proxy
     restart: always

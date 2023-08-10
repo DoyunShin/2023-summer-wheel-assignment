@@ -1,9 +1,6 @@
 name: Push Server and Client images to Docker Hub
+on: [push, pull_request]
 
-on:
-  push:
-    branches:
-      - master
 
 jobs:
   build:

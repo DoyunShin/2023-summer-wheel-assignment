@@ -1,2 +1,68 @@
-# Write docker-compose file here
-# For instructions, see https://github.com/SnowSuno/wheel-assignment-solution#2-docker-composeyml-%EC%9E%91%EC%84%B1
+version: "3.3"
+
+servuces:
+  proxy:
+    container_name: proxy
+    restart: always
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./webconf/nginx.conf:/etc/nginx/nginx.conf
+      - ./webconf/sites-enabled:/etc/nginx/sites-enabled
+      - ./logs/nginx:/var/log/nginx
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+  server:
+    container_name: server
+    restart: always
+    build: ./server
+    depends_on:
+      - db
+    environment:
+      - PORT=80
+      - DB_PATH=mongodb://db:27017/taxi
+      - REDIS_HOST=redis://redis:6379
+      - SPARCSSO_CLIENT_ID=${SPARCSSO_CLIENT_ID}
+      - SPARCSSO_CLIENT_KEY=${SPARCSSO_CLIENT_KEY}
+      - FRONT_URL=${FRONT_URL}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME}
+      - SESSION_KEY=${SESSION_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+    networks:
+      - taxi-net
+  client:
+    container_name: client
+    restart: always
+    build: ./client
+    environment:
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
+      - REACT_APP_IO_URL=${REACT_APP_IO_URL}
+      - REACT_APP_S3_URL=${REACT_APP_S3_URL}
+  db:
+    container_name: db
+    restart: always
+    image: mongo:5.0.8
+    volumes:
+      - mongo-logs:/var/log/mongodb
+      - mongo-data:/var/lib/mongodb
+      - ./mongodb.conf:/etc/mongo/mongodb.conf:ro
+    networks:
+      - taxi-net
+  redis:
+    container_name: redis
+    restart: always
+    image: redis:latest
+    networks:
+      - taxi-net
+
+volumes:
+  mongo-logs:
+  mongo-data:
+
+networks:
+  taxi-net:
+
+

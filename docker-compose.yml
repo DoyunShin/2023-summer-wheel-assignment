@@ -9,14 +9,13 @@ servuces:
       - 80:80
       - 443:443
     volumes:
-      - ./webconf/nginx.conf:/etc/nginx/nginx.conf
       - ./webconf/sites-enabled:/etc/nginx/sites-enabled
       - ./logs/nginx:/var/log/nginx
       - /etc/letsencrypt:/etc/letsencrypt:ro
   server:
     container_name: server
     restart: always
-    build: ./server
+    image: tklco/taxi-server:latest
     depends_on:
       - db
     environment:
@@ -36,7 +35,7 @@ servuces:
   client:
     container_name: client
     restart: always
-    build: ./client
+    image: tklco/taxi-client:latest
     environment:
       - REACT_APP_API_URL=${REACT_APP_API_URL}
       - REACT_APP_IO_URL=${REACT_APP_IO_URL}

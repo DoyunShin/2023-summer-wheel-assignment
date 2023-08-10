@@ -4,8 +4,8 @@ server {
     server_name backend.example.com;
 
     ssl on;
-    ssl_certificate /etc/letsencrypt/live/backend.example.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/backend.example.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/frontend.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/frontend.example.com/privkey.pem;
 
     location / {
         proxy_pass http://server:80;
@@ -15,9 +15,9 @@ server {
 server {
     listen 80;
     listen [::]:80;
-    server_name backend.example.com;
+    server_name frontend.example.com;
 
-    location / {
-        proxy_pass http://server:80;
-    }
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
+
+    return 301 https://$host$request_uri;
 }

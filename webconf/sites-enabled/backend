@@ -3,9 +3,10 @@ server {
     listen [::]:443 ssl http2;
     server_name backend.example.com;
 
-    ssl on;
     ssl_certificate /etc/letsencrypt/live/backend.example.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/backend.example.com/privkey.pem;
+    include /etc/nginx/ssl/options-ssl-nginx.conf;
+    ssl_dhparam /etc/nginx/ssl/ssl-dhparams.pem;
 
     location / {
         proxy_pass http://server:80;

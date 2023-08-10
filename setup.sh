@@ -13,10 +13,10 @@ git restore webconf/
 sed -i "s/backend.example.com/${BACK_DNS}/g" webconf/sites-enabled/backend
 sed -i "s/frontend.example.com/${FRONT_DNS}/g" webconf/sites-enabled/frontend
 
+# check webconf/ssl/dh-param.pem is exist
 if [ ! -f webconf/ssl/dh-param.pem ]; then
     sudo openssl dhparam -out webconf/ssl/dh-param.pem 4096
 fi
-
 
 sudo docker compose pull
 # check docker container is already running

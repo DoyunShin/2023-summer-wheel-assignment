@@ -10,7 +10,7 @@ fi
 rm -rf webconf/
 git restore webconf/
 
-sed -i "s/backend.example.com/${DNS}/g" webconf/sites-enabled/backend
+sed -i "s/taxi.example.com/${DNS}/g" webconf/sites-enabled/taxi
 
 if [ ! -f ssl-dhparams.pem ]; then
     sudo openssl dhparam -out ssl-dhparams.pem 4096

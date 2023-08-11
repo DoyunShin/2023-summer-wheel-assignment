@@ -1,10 +1,10 @@
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name backend.example.com;
+    server_name taxi.example.com;
 
-    ssl_certificate /etc/letsencrypt/live/frontend.example.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/frontend.example.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/taxi.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/taxi.example.com/privkey.pem;
     include /etc/nginx/ssl/options-ssl-nginx.conf;
     ssl_dhparam /etc/nginx/ssl-dhparams.pem;
 
@@ -26,7 +26,7 @@ server {
 server {
     listen 80;
     listen [::]:80;
-    server_name frontend.example.com;
+    server_name taxi.example.com;
 
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
 
